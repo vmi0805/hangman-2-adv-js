@@ -1,42 +1,49 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
-const letters7c = require("./letter.js")
-const word = require("./word.js")
+const {letters7c} = require("./letter.js")
+const {numWrong} = require("./letter.js")
+const {numCorrect} = require("./letter.js")
+const displayc = require("./word.js")
 
-console.log("\n")
+const wordtoGuess = new letters7c("e","x","h","a","u","s","t");
+const display = new displayc("You win, You lose");
+
 console.log("~~~~~~Welcome to Hangman~~~~~~~\n")
 console.log("~~~~~~The subject is automobiles~~~~~~\n")
 console.log("~~~~~~The word to guess is SEVEN letters long~~~~~~\n")
+console.log("~~~~~~You have 10 guesses~~~~~~\n")
 
-const wordtoGuess = new letters7c("e","x","h","a","u","s","t")
-const wordc = new word("exhaust")
+// GAME LOGIC
+function userGuess (){
 
-// GAME LOGIC STARTS
-inquirer
-  .prompt([
-    {
-      type: "input",
-      message: "Guess a letter...",
-      name: "guess"
-    },
+    console.log("Number of correct guesses:" + wordtoGuess.numCorrect);
+    console.log("Number of incorrect guesses:" + wordtoGuess.numWrong);
 
-  ])
-  .then(function(inquirerResponse) {
+        inquirer
+          .prompt([
+            {
+              type: "input",
+              message: "Guess a letter...",
+              name: "guess"
+            },
+          ])
+          .then(function(inquirerResponse) {
 
-  	wordc.guess(inquirerResponse.guess);
+                console.log(inquirerResponse.guess);
 
-  	})
+              	wordtoGuess.guess(inquirerResponse.guess);
 
-// display the blanks to guess (seven in total)
+                if (wordtoGuess.numCorrect == 7){ 
+                  console.log(display.win);
+                }
+                if (wordtoGuess.numWrong == 10){
+                  console.log(display.loss);
+                }
+                if (wordtoGuess.numWrong < 10 && wordtoGuess.numCorrect < 7){
+                    userGuess();
 
-// get letter to guess in prompt - store in inquirer.guess
+                } else return;
+                });
+}
 
-// compare inquirer.guess to each letter in the wordtoGuess object
-
-// if guess matches any of the wordtoGuess letters, then display the updated letters (use an array) and increment the number of correct guesses
-
-// if guess does not match any of the wordtoGuess letters, update the guessed letters array and decrease guesses remaining and console.log the array of wrong letters guessed
-
-// if number of guesses remaining equals zero, console.log "you lose" and then prompt user whether to resetart the game
-
-// if number of correct guesses matches the word length, then console.log "you win" and prompt the user whether to restart the game
+userGuess();
