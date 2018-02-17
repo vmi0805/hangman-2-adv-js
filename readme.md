@@ -1,0 +1,1 @@
+Hangman game - you have 10 guesses.  the word to guess is seven letters long.  the topic is automobile parts.

@@ -9,7 +9,7 @@ const wordtoGuess = new letters7c("e","x","h","a","u","s","t");
 const display = new displayc("You win, You lose");
 
 console.log("~~~~~~Welcome to Hangman~~~~~~~\n")
-console.log("~~~~~~The subject is automobiles~~~~~~\n")
+console.log("~~~~~~The subject is automobile parts~~~~~~\n")
 console.log("~~~~~~The word to guess is SEVEN letters long~~~~~~\n")
 console.log("~~~~~~You have 10 guesses~~~~~~\n")
 
